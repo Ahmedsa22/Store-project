@@ -1,64 +1,71 @@
-// Tab functionality
-function openTab(evt, tabName) {
-    const tabContents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabContents.length; i++) {
-        tabContents[i].classList.remove("active");
-    }
+document.addEventListener('DOMContentLoaded', function () {
+    
+    //gestion des tabs
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-    const tabButtons = document.getElementsByClassName("tab-button");
-    for (let i = 0; i < tabButtons.length; i++) {
-        tabButtons[i].classList.remove("active");
-    }
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+          
+            tabContents.forEach(content => content.classList.remove('active'));
 
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
-};
+            
+            button.classList.add('active');
 
-// Liste pour stocker tous les produits ajoutés
+           
+            const tabId = button.getAttribute('data-tab');
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+        });
+    });
 
 
-// Déclarez allProducts en dehors de la fonction click pour qu'elle persiste
-let allProducts = [];
+    //gestion de ajout products
 
-const ButtonAjoutTab = document.getElementById("ButtonAjoutTab");
-const ButtonEnrgs = document.getElementById("Enregistrer"); // Assurez-vous que l'ID est correct
 
-// Attachez l'écouteur d'événements inconditionnellement (ou gérez l'état actif ailleurs)
-ButtonEnrgs.addEventListener('click', function() {
-    const Price = document.getElementById('product-price');
-    const image = document.getElementById('product-image');
-    const description = document.getElementById('product-description');
-    const avantage = document.getElementById('product-benefits');
-    const categorie = document.getElementById('product-category').value;
+    const buttonEnrgs = document.getElementById('Enregistrer');
+    const ProduitImage = document.getElementById('product-image');
+    let AllProducts = [];
+    let imagePath = "";
+    
+    ProduitImage.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        imagePath = `images/${file.name}`;
+        console.log("Chemin de l'image :", imagePath);
+      }
+    });
+    
+    buttonEnrgs.addEventListener('click', function (event) {
+      event.preventDefault(); // ⛔ empêche le rechargement de la page
+    
+      const Produit = {
+        nom: document.getElementById('product-name').value.trim(),
+        category: document.getElementById('product-category').value.trim(),
+        price: document.getElementById('product-price').value.trim(),
+        Stock: document.getElementById('product-stock').value.trim(),
+        description: document.getElementById('product-description').value.trim(),
+        avantages: document.getElementById('product-benefits').value.trim(),
+        image: imagePath
+      };
+    
+      AllProducts.push(Produit);
+      //stocker AllProducts dans le localstorage
 
-    let productAdded = {
-        image: "",
-        prix: "",
-        categorie: "",
-        description: "",
-        avantage: ""
-    };
+    localStorage.setItem("AllProducts",JSON.stringify(AllProducts));
+    
 
-    // Récupère l'image
-    if (image.files ?. image.files[0]) {
-        productAdded.image = "images/" + image.files[0].name;
-    } else {
-        productAdded.image = "images/default-product.jpg";
-    }
+    console.log("Tous les produits :", AllProducts);
+    });
 
-    // Récupère le prix
-    productAdded.prix = Price.value;
+    
 
-    // Récupère la description
-    productAdded.description = description.value;
 
-    // Récupère l'avantage
-    productAdded.avantage = avantage.value;
 
-    // Récupère la catégorie
-    productAdded.categorie = categorie;
 
-    // Ajoute le produit à la liste globale
-    allProducts.push(productAdded);
-    console.log("Tous les produits :", allProducts);
+
 });

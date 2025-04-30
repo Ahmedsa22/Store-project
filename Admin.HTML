@@ -31,9 +31,9 @@
         </div>
 
         <div class="admin-tabs">
-            <button class="tab-button active" onclick="openTab(event, 'add-product')" id="ButtonAjoutTab">Ajouter un Produit</button>
-            <button class="tab-button" onclick="openTab(event, 'manage-products')" id="ButtonManageTab">Gérer les Produits</button>
-            <button class="tab-button" onclick="openTab(event, 'promotions')" id="ButtonPromoTab">Promotions</button>
+            <button class="tab-button active"  id="ButtonAjoutTab" data-tab="add-product">Ajouter un Produit</button>
+            <button class="tab-button"  id="ButtonManageTab" data-tab="manage-products">Gérer les Produits</button>
+            <button class="tab-button"  id="ButtonPromoTab" data-tab="promotions">Promotions</button>
         </div>
 
         <!-- Add Product Tab -->
@@ -92,9 +92,16 @@
                 <button type="submit" class="submit-btn" id="Enregistrer"><i class="fas fa-save"></i> Enregistrer le Produit</button>
             </form>
         </div>
+    </div>
+
+
+
+
+
+    
 
         <!-- Manage Products Tab -->
-        <div id="manage-products" class="tab-content">
+        <div id="manage-products" class="tab-content ">
             <h2><i class="fas fa-edit"></i> Gérer les Produits Existants</h2>
             
             <div class="form-group">
@@ -199,7 +206,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 
     <script src="Admin.js"></script>      
 

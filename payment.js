@@ -40,7 +40,7 @@ if (window.location.pathname.endsWith('payment.html')) {
               }
 
               const priceParagraph = document.createElement('h1');
-              priceParagraph.textContent = item.price;
+              priceParagraph.textContent = item.Price;
               itemDiv.appendChild(priceParagraph);
 
               const deleteButton = document.createElement('button');
@@ -84,7 +84,7 @@ function updateTotal(totalElement) {
       if (cartItems && cartItems.length > 0) {
           const priceTotal = cartItems.reduce((acc, cartItem) => {
               // Ensure cartItem.price is treated as a string
-              const priceString = cartItem.price ? cartItem.price.toString() : '0';
+              const priceString = cartItem.Price ? cartItem.Price.toString() : '0';
               const price = parseFloat(priceString.replace('$', ''));
               return acc + price;
           }, 0);
