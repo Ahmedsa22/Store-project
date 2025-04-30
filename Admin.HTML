@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Admin.css">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="Header">
+        <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #f5f5f5;"></i>       
+        <input type="text" placeholder="Recherche un element" id="search">
+        <i class="fa-solid fa-gamepad fa-2xl" style="color: #f0f0f0;" id="logo"></i>
+
+        <button id="panier"><i class="fa-solid fa-basket-shopping fa-2xl" style="color: #ffff;"></i></button>
+
+        <i class="fa-solid fa-user fa-2xl" style="color: #ffff;" id="user"></i>
+        <select id="compte" value="compte">
+            <option value="signin">signin</option>
+            <option value="login">login</option>
+            <option value="log out">logout</option>
+        </select>
+    </div>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-user-shield"></i> Tableau de Bord Admin</h1>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="tab-button active" onclick="openTab(event, 'add-product')" id="ButtonAjoutTab">Ajouter un Produit</button>
+            <button class="tab-button" onclick="openTab(event, 'manage-products')" id="ButtonManageTab">Gérer les Produits</button>
+            <button class="tab-button" onclick="openTab(event, 'promotions')" id="ButtonPromoTab">Promotions</button>
+        </div>
+
+        <!-- Add Product Tab -->
+        <div id="add-product" class="tab-content active">
+            <h2><i class="fas fa-plus-circle"></i> Ajouter un Nouveau Produit</h2>
+            
+            <form id="add-product-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="product-name">Nom du Produit</label>
+                        <input type="text" id="product-name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-price">Prix (€)</label>
+                        <input type="number" id="product-price" class="form-control" min="0" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-category">Catégorie</label>
+                        <select id="product-category" class="form-control" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="jeux-video">Jeux Vidéo</option>
+                            <option value="consoles">Consoles</option>
+                            <option value="accessoires">Accessoires</option>
+                            <option value="merchandising">Merchandising</option>
+                            <option value="occasion">Occasion</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-stock">Stock Disponible</label>
+                        <input type="number" id="product-stock" class="form-control" min="0" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <input id="product-description" class="form-control" type="text" required>
+                
+                <div class="form-group">
+                    <label for="product-benefits">Avantages du Produit</label>
+                    <input id="product-benefits" class="form-control" type="text" placeholder="Séparé les avantages par des virgules">
+                </div>
+                
+                <div class="form-group">
+                    <div class="file-input-container">
+                        <label class="file-input-label">
+                            <i class="fas fa-upload"></i> Choisir une image
+                            <input type="file" id="product-image" class="file-input">
+                        </label>
+                        <span class="file-name" id="file-name-display"></span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="Enregistrer"><i class="fas fa-save"></i> Enregistrer le Produit</button>
+            </form>
+        </div>
+
+        <!-- Manage Products Tab -->
+        <div id="manage-products" class="tab-content">
+            <h2><i class="fas fa-edit"></i> Gérer les Produits Existants</h2>
+            
+            <div class="form-group">
+                <input type="text" id="product-search" class="form-control" placeholder="Rechercher un produit...">
+            </div>
+            
+            <table class="product-list">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Catégorie</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="images\Ps5.jpg" alt="Produit" width="50"></td>
+                        <td>PlayStation 5</td>
+                        <td>499.99 €</td>
+                        <td>Consoles</td>
+                        <td>15</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                                <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Promotions Tab -->
+        <div id="promotions" class="tab-content">
+            <h2><i class="fas fa-percentage"></i> Gérer les Promotions</h2>
+            
+            <form id="add-promotion-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="promotion-name">Nom de la Promotion</label>
+                        <input type="text" id="promotion-name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="discount-percent">Pourcentage de Réduction</label>
+                        <input type="number" id="discount-percent" class="form-control" min="1" max="99" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="start-date">Date de Début</label>
+                        <input type="date" id="start-date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="end-date">Date de Fin</label>
+                        <input type="date" id="end-date" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="promotion-products">Produits en Promotion</label>
+                    <select id="promotion-products" class="form-control" multiple size="5" required>
+                        <option value="1">PlayStation 5</option>
+                        <option value="2">The Legend of Zelda: Tears of the Kingdom</option>
+                        <option value="3">Manette Xbox Elite Series 2</option>
+                        <option value="4">Final Fantasy XVI</option>
+                        <option value="5">Nintendo Switch OLED</option>
+                    </select>
+                    <small style="color: #666; display: block; margin-top: 5px;">Maintenez Ctrl (ou Cmd) pour sélectionner plusieurs produits</small>
+                </div>
+                
+                <button type="submit" class="submit-btn"><i class="fas fa-plus"></i> Ajouter la Promotion</button>
+            </form>
+            
+            <h3 style="margin-top: 30px;">Promotions Actives</h3>
+            
+            <div class="promotion-card">
+                <div class="promotion-details">
+                    <div class="promotion-title">Soldes d'Été: -30%</div>
+                    <div>Du 01/06/2025 au 15/06/2025</div>
+                    <div>5 produits inclus</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            
+            <div class="promotion-card">
+                <div class="promotion-details">
+                    <div class="promotion-title">Liquidation -50%</div>
+                    <div>Du 10/05/2025 au 20/05/2025</div>
+                    <div>3 produits inclus</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Admin.js"></script>      
+
+</body>
+</html>
