@@ -1,44 +1,13 @@
-
-        // Image preview functionality
-        function previewImage(input) {
-            const fileNameDisplay = document.getElementById('file-name-display');
-            const preview = document.getElementById('image-preview');
-            
-            if (input.files && input.files[0]) {
-                const fileName = input.files[0].name;
-                fileNameDisplay.textContent = fileName;
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        
-        // Form submission handling
-        document.getElementById('add-product-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Produit ajouté avec succès !');
-            this.reset();
-            document.getElementById('image-preview').style.display = 'none';
-            document.getElementById('file-name-display').textContent = '';
-        });
-        
-        document.getElementById('add-promotion-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Promotion ajoutée avec succès !');
-            this.reset();
-        });
-        
-        // Initialize delete confirmation
-        const deleteButtons = document.querySelectorAll('.delete-btn');
-        deleteButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
-                    alert('Élément supprimé avec succès !');
-                }
-            });
-        });
-    </script>
+<tr>
+                        <td><img src="images\Ps5.jpg" alt="Produit" width="50"></td>
+                        <td>PlayStation 5</td>
+                        <td>499.99 €</td>
+                        <td>Consoles</td>
+                        <td>15</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                                <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
