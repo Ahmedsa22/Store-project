@@ -113,4 +113,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+
+    //gerer la tab d ajout de promotion
+
+    const NomPromo = document.getElementById('promotion-name');
+    const PercentPromo = document.getElementById('discount-percent');
+    const StartDate = document.getElementById('start-date');
+    const EndDate = document.getElementById('end-date');
+    
+
+
+
+
+
 });
