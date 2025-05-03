@@ -40,7 +40,7 @@ if (window.location.pathname.endsWith('payment.html')) {
               }
 
               const priceParagraph = document.createElement('h1');
-              priceParagraph.textContent = item.Price;
+              priceParagraph.textContent = `${item.Price} MAD`;
               itemDiv.appendChild(priceParagraph);
 
               const deleteButton = document.createElement('button');
@@ -88,12 +88,12 @@ function updateTotal(totalElement) {
               const price = parseFloat(priceString.replace('$', ''));
               return acc + price;
           }, 0);
-          totalElement.textContent = `Your Total is $${priceTotal.toFixed(2)}`;
+          totalElement.textContent = `Your Total is ${priceTotal.toFixed(2)} MAD `;
       } else {
-          totalElement.textContent = `Your Total is $0.00`;
+          totalElement.textContent = `Your Total is 0.00 MAD`;
       }
   } else {
-      totalElement.textContent = `Your Total is $0.00`;
+      totalElement.textContent = `Your Total is 0.00 MAD`;
   }
   console.log("Total displayed:", totalElement.textContent);
 }

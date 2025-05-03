@@ -1,5 +1,6 @@
 
 let ProduitData = JSON.parse(localStorage.getItem("AllProducts")) || [];
+console.log(ProduitData);
 
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -15,12 +16,16 @@ document.addEventListener('DOMContentLoaded',function(){
     function ShowItems(ProduitData) {
       let AllProducts = "";
       ProduitData.forEach(Produit => {
+        const shortDesc = Produit["description"].substring(0, 80) + (Produit["description"].length > 80 ? "..." : "");
+        const fullDesc = Produit["description"];
+        
         AllProducts += `
           <div class="item" data-category="${Produit["category"]}">
-            <img src="${Produit["image"]}" class="product-image" alt="${Produit["description"]}" data-details='${JSON.stringify(Produit)}'>
+            <img src="${Produit["image"]}" class="product-image" alt="${Produit["description"]}" data-details="${encodeURIComponent(JSON.stringify(Produit))}">
             <p class="description">${Produit["nom"]}</p>
-            <p class="description">${Produit["description"]}</p>
-            <div class="price">${Produit["Price"]} MAD</div>
+            <p class="description short-description">${shortDesc} <span class="more-text" style="display:none;">${fullDesc.substring(80)}</span> 
+            ${Produit["description"].length > 80 ? '<span class="see-more" style="color:blue;cursor:pointer;">Voir plus</span>' : ''}</p>
+            <div class="price">${Produit["price"]} MAD</div>
             <p class="description">Stock: ${Produit["Stock"]}</p>
             <button type="submit" class="add-to-cart" data-name="${Produit["description"]}" data-price="${Produit["Price"]}">
               <i class="fa-solid fa-bag-shopping fa-2xl"></i>
@@ -29,8 +34,25 @@ document.addEventListener('DOMContentLoaded',function(){
       });
       return AllProducts;
     }
+    
 
     ProductContainer.innerHTML = ShowItems(ProduitData);
+
+    // Ajouter événement "Voir plus"
+const seeMoreButtons = document.querySelectorAll(".see-more");
+seeMoreButtons.forEach(btn => {
+  btn.addEventListener("click", function () {
+    const moreText = this.previousElementSibling;
+    if (moreText.style.display === "none") {
+      moreText.style.display = "inline";
+      this.textContent = "Voir moins";
+    } else {
+      moreText.style.display = "none";
+      this.textContent = "Voir plus";
+    }
+  });
+});
+
 
     // Récupérer la modale et ses éléments
     const modal = document.getElementById("imageModal");
@@ -44,7 +66,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const productImages = ProductContainer.querySelectorAll(".product-image");
     productImages.forEach(img => {
       img.addEventListener('click', function() {
-        const productDetails = JSON.parse(this.dataset.details);
+        const productDetails = JSON.parse(decodeURIComponent(this.dataset.details));
         modal.style.display = "block";
         modalImage.src = this.src;
         modalImage.alt = this.alt;

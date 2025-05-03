@@ -145,7 +145,7 @@
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 30px;
 }
 
 .form-group {
@@ -160,11 +160,16 @@
 }
 
 .form-control {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #d1d1d1;
     border-radius: 5px;
     font-family: inherit;
+}
+
+#labelAvantage{
+    margin-top: 10px;
+  
 }
 
 textarea.form-control {
@@ -188,6 +193,10 @@ textarea.form-control {
     background-color: #4a148c;
 }
 
+
+#labelImage{
+    color: #ffffff;
+}
 /* Product List */
 .product-list {
     width: 100%;

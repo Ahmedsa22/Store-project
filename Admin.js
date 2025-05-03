@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem("AllProducts",JSON.stringify(AllProducts));
             AfficherProduit(AllProducts);
            
-        })
-    })
+        });
+    });
 
 
 

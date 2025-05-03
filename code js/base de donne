@@ -1,5 +1,6 @@
  ProduitData = [
         {
+          Stock:  
           description: "Manette sans fil ergonomique pour console X.",
           image: "images/manettex.jpg",
           price: "$49.99",
