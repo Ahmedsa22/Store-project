@@ -159,43 +159,17 @@
                 <div class="form-group">
                     <label for="promotion-products">Produits en Promotion</label>
                     <select id="promotion-products" class="form-control" multiple size="5" required>
-                        <option value="1">PlayStation 5</option>
-                        <option value="2">The Legend of Zelda: Tears of the Kingdom</option>
-                        <option value="3">Manette Xbox Elite Series 2</option>
-                        <option value="4">Final Fantasy XVI</option>
-                        <option value="5">Nintendo Switch OLED</option>
+                        
                     </select>
                     <small style="color: #666; display: block; margin-top: 5px;">Maintenez Ctrl (ou Cmd) pour sélectionner plusieurs produits</small>
                 </div>
                 
-                <button type="submit" class="submit-btn"><i class="fas fa-plus"></i> Ajouter la Promotion</button>
+                <button type="submit" id="Ajout-Promo" class="submit-btn"><i class="fas fa-plus"></i> Ajouter la Promotion</button>
             </form>
             
             <h3 style="margin-top: 30px;">Promotions Actives</h3>
             
-            <div class="promotion-card">
-                <div class="promotion-details">
-                    <div class="promotion-title">Soldes d'Été: -30%</div>
-                    <div>Du 01/06/2025 au 15/06/2025</div>
-                    <div>5 produits inclus</div>
-                </div>
-                <div class="action-buttons">
-                    <button class="edit-btn"><i class="fas fa-edit"></i></button>
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-            
-            <div class="promotion-card">
-                <div class="promotion-details">
-                    <div class="promotion-title">Liquidation -50%</div>
-                    <div>Du 10/05/2025 au 20/05/2025</div>
-                    <div>3 produits inclus</div>
-                </div>
-                <div class="action-buttons">
-                    <button class="edit-btn"><i class="fas fa-edit"></i></button>
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
+          <div id = "ListPromo"></div>
         </div>
     
 
