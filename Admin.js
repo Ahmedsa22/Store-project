@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${Produit.Stock}</td>
                 <td>
                     <div class="action-buttons">
-                        <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="edit-btn" data-index="${index}"><i class="fas fa-edit"></i></button>
                         <button class="delete-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
                     </div>
                 </td>
@@ -112,6 +112,57 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    //gerer l edition du produit
+
+    const ButtonEdit = document.querySelectorAll(".edit-btn");
+    ButtonEdit.forEach(button => {
+    button.addEventListener('click', function() {
+        const PrdtEdit = this.getAttribute("data-index");
+        
+       
+        const productToEdit = AllProducts[PrdtEdit];
+        
+        const modal = document.getElementById("editModal");
+        modal.querySelector("#productId").value = PrdtEdit;
+        modal.querySelector("#newName").value = productToEdit.nom;
+        modal.querySelector("#newPrice").value = productToEdit.price;
+        modal.querySelector("#newStock").value = productToEdit.Stock;
+        modal.querySelector("#newCategory").value = productToEdit.category;
+        modal.querySelector("#newDescription").value = productToEdit.description;
+        modal.querySelector("#newAvantages").value = productToEdit.avantages;
+        modal.querySelector("#newImage").value = productToEdit.image;
+        
+        // Display the modal
+        modal.style.display = "block";
+    });
+});
+
+
+// Handle form submission
+document.getElementById("editProductForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const productId = document.getElementById("productId").value;
+    
+    // Update the product with form values
+    AllProducts[productId].nom = document.getElementById("newName").value;
+    AllProducts[productId].price = document.getElementById("newPrice").value;
+    AllProducts[productId].Stock = document.getElementById("newStock").value;
+    AllProducts[productId].category = document.getElementById("newCategory").value;
+    AllProducts[productId].description = document.getElementById("newDescription").value;
+    AllProducts[productId].avantages = document.getElementById("newAvantages").value;
+    AllProducts[productId].image = document.getElementById("newImage").value;
+    
+    // Save to localStorage
+    localStorage.setItem("AllProducts", JSON.stringify(AllProducts));
+    
+    // Close the modal
+    document.getElementById("editModal").style.display = "none";
+    
+    // Refresh the products display
+    AfficherProduit(AllProducts);
+});
+
     //produits en promo 
     const PromoProductConteiner = document.getElementById('promotion-products');
     function AfficherProdProm (){
@@ -130,14 +181,17 @@ document.addEventListener('DOMContentLoaded', function () {
  
     const ButtonPromo = document.getElementById('Ajout-Promo');
 
+
     ButtonPromo.addEventListener('click',function(event){
+        let SelectedIndex = document.getElementById('promotion-products').value;
         event.preventDefault();
         let Prodpromo ={
             Nom : document.getElementById('promotion-name').value,
             Percent : document.getElementById('discount-percent').value,
             start : document.getElementById('start-date').value,
             end : document.getElementById('end-date').value,
-            PrpduitIndex : document.getElementById('promotion-products').value
+            Propduitindex: SelectedIndex,
+            Produit : AllProducts[SelectedIndex].nom
         }
         ListProdProm.push(Prodpromo)
         
@@ -151,26 +205,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Afficher les promo
     const PromoConteiner = document.getElementById('ListPromo');
-    function AfficherLesProms(){
+    function AfficherLesProms(ListProdProm) {
         let Htmlcontent1 = "";
-        ListProdProm.forEach(Promo=>{
-
-            Htmlcontent1+=` 
+        ListProdProm.forEach((Promo, index) => {
+            Htmlcontent1 += ` 
             <div class="promotion-card">
-            <div class="promotion-details">
+                <div class="promotion-details">
                     <div class="promotion-title">${Promo.Nom}: -${Promo.Percent}%</div>
                     <div>Du ${Promo.start} au ${Promo.end}</div>
+                    <div>${Promo.Produit}</div>
                 </div>
                 <div class="action-buttons">
-                    <button class="edit-btn"><i class="fas fa-edit"></i></button>
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    <button class="delete-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
                 </div>
-               </div> `
-
+            </div>`;
         });
-        return Htmlcontent1;
+        PromoConteiner.innerHTML = Htmlcontent1;
+    
+        // 🔁 Reattacher les événements après mise à jour du DOM
+        const ButtonDltPromo = document.querySelectorAll(".delete-btn");
+        ButtonDltPromo.forEach(button => {
+            button.addEventListener('click', function () {
+                const index = button.dataset.index;
+                ListProdProm.splice(index, 1);
+                localStorage.setItem("ListProdProm", JSON.stringify(ListProdProm));
+                AfficherLesProms(ListProdProm); // 🔁 Re-render après suppression
+            });
+        });
     }
+    
+    // Premier affichage
+    AfficherLesProms(ListProdProm);
+    console.log(ListProdProm);
+    
 
-    PromoConteiner.innerHTML = AfficherLesProms();
 
 });
+
+

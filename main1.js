@@ -1,6 +1,8 @@
 
 let ProduitData = JSON.parse(localStorage.getItem("AllProducts")) || [];
+let Promo = JSON.parse(localStorage.getItem("ListProdProm")) || [];
 console.log(ProduitData);
+console.log(Promo);
 
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -25,6 +27,7 @@ document.addEventListener('DOMContentLoaded',function(){
             <p class="description">${Produit["nom"]}</p>
             <p class="description short-description">${shortDesc} <span class="more-text" style="display:none;">${fullDesc.substring(80)}</span> 
             ${Produit["description"].length > 80 ? '<span class="see-more" style="color:blue;cursor:pointer;">Voir plus</span>' : ''}</p>
+            <p class="description short-description">${Produit["avantages"]}</p>
             <div class="price">${Produit["price"]} MAD</div>
             <p class="description">Stock: ${Produit["Stock"]}</p>
             <button type="submit" class="add-to-cart" data-name="${Produit["description"]}" data-price="${Produit["Price"]}">

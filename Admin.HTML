@@ -123,7 +123,72 @@
                    
                 </tbody>
             </table>
+ 
+
+            <!-- Edit Product Modal -->
+        <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h2>EDIT PRODUCT</h2>
+            <span class="close">&times;</span>
+            </div>
+            <form id="editProductForm">
+            <label for="productId">INDEX</label>
+            <input type="text" id="productId">
+            
+            <div class="form-group">
+                <label for="newName">NAME</label>
+                <input type="text" id="newName" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                <label for="newPrice">PRICE</label>
+                <input type="number" id="newPrice" required>
+                </div>
+                
+                <div class="form-group">
+                <label for="newStock">STOCK</label>
+                <input type="number" id="newStock" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="newCategory">CATEGORY</label>
+                <select id="newCategory" required>
+                <option value="pc">PC Gaming</option>
+                <option value="console">Consoles</option>
+                <option value="accessory">Accessories</option>
+                <option value="game">Games</option>
+                <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="newDescription">DESCRIPTION</label>
+                <textarea id="newDescription" rows="4"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="newAvantages">ADVANTAGES</label>
+                <textarea id="newAvantages" rows="4"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="newImage">IMAGE URL</label>
+                <input type="text" id="newImage">
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="update-btn">UPDATE</button>
+            </div>
+            </form>
         </div>
+        </div>
+
+                </div>
+
+
 
 
 
